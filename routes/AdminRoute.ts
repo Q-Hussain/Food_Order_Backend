@@ -4,9 +4,9 @@ import { CreateVandor, GetVandors, GetVandorByID } from '../controller'
 
 const router = express.Router();
 
-router.post('/vendor', CreateVandor);
-router.get('/vendor', GetVandors);
-router.get('/vendor/:id', GetVandorByID);
+router.post('/vandor', CreateVandor);
+router.get('/vandors', GetVandors);
+router.get('/vandor/:id', GetVandorByID);
 
 
 
