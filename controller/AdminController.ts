@@ -34,9 +34,23 @@ export const CreateVandor = async (req: Request, res: Response, next: NextFuncti
 }
 
 export const GetVandors = async (req: Request, res: Response, next: NextFunction) => {
+    const vandors = await Vandor.find();
 
+    if (vandors != null) {
+        return res.json(vandors);
+    }
+    return res.json({ 'message': 'no vandors available yet' });
 }
 
 export const GetVandorByID = async (req: Request, res: Response, next: NextFunction) => {
-
+    const vandorID = req.params.id;
+    try {
+        const vandor = await Vandor.findById(vandorID);
+        if (vandor != null) {
+            return res.json(vandor);
+        }
+    }
+    catch (error) {
+        return res.json({ 'message': 'no vandor available against given id' });
+    }
 }
