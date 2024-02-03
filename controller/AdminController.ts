@@ -6,6 +6,11 @@ import { Vandor } from '../models';
 export const CreateVandor = async (req: Request, res: Response, next: NextFunction) => {
     const { name, address, pincode, foodType, email, password, ownerName, phone } = <CreateVandorInput>req.body;
 
+    const existingVandor = await Vandor.findOne({ email: email });
+    if (existingVandor != null) {
+        return res.json({ 'message': 'A vandor is already exist with same email' });
+    }
+
     const createVandor = await Vandor.create({
         name: name,
         address: address,

@@ -26,6 +26,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.clear();
     console.log('app is listening to the port: ' + port);
 })
