@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { CreateVandorInput } from '../dto';
 import { Vandor } from '../models';
+import { GeneratePassword, GenerateSalt } from '../utility';
 
 
 export const CreateVandor = async (req: Request, res: Response, next: NextFunction) => {
@@ -11,14 +12,17 @@ export const CreateVandor = async (req: Request, res: Response, next: NextFuncti
         return res.json({ 'message': 'A vandor is already exist with same email' });
     }
 
+    const salt = await GenerateSalt();
+    const userPassword = await GeneratePassword(password, salt);
+
     const createVandor = await Vandor.create({
         name: name,
         address: address,
         pincode: pincode,
         foodType: foodType,
         email: email,
-        password: password,
-        salt: 'asdf1234',
+        password: userPassword,
+        salt: salt,
         ownerName: ownerName,
         phone: phone,
         rating: 0,
